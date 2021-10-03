@@ -1,0 +1,12 @@
+#lang racket
+(define (count-char s c)
+  (define occurrences 0)
+  (define k (string-ref c 0))
+  (define l (string->list s))
+  (for ([ch l])
+    (when (equal? ch k)
+    (set! occurrences (+ occurrences 1))
+    )
+  )
+  (println occurrences)
+)
