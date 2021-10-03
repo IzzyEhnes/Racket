@@ -1,0 +1,10 @@
+#lang racket
+(define (blastoff x)
+  (define str "")
+  (for ([i (in-range x 0 -1)])
+    (set! str (string-append str (number->string i)))
+    (set! str (string-append str " "))
+  )
+  (set! str (substring str 0 (- (string-length str) 1)))
+  (println str)
+)
