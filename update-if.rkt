@@ -1,7 +1,10 @@
 #lang racket
 (define (update-if f g xs)
-  (if (f (first xs))
-      (print "even")
-      (print "odd")
+  (if (equal? xs '())
+      xs
+      (if (f (first xs))
+          (append (list (g (first xs))) (update-if f g (rest xs)))
+          (update-if f g (rest xs))
+      )
   )
 )
