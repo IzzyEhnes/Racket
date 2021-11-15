@@ -1,0 +1,21 @@
+#lang racket
+(provide parseS)
+(require "match.rkt")
+(require "parseT.rkt")
+; predictive parsing for the context-free grammar
+;     S' → S$
+;     S → abS | baT
+;     T → baT | λ
+
+; parseS: list of string -> listof string or false
+; toks: remaining tokens to be consumed
+; evaluates to: remaining tokens after parsing, or false if an error occurs
+(define (parseS toks)
+  (cond
+    [(not (list? toks)) false]                                        ; if toks is not a list
+    [(empty? toks) false]                                             ; return false because S not nullable
+    [(equal? (first toks) "a") (parseS (match (match toks "a") "b"))] ; S → abS
+    [(equal? (first toks) "b") (parseT (match (match toks "b") "a"))] ; S → baT
+    [else false]
+  )
+)
